@@ -70,7 +70,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       queryClient.setQueriesData(
         { queryKey: ["keyUserDetails", userId] },
-        (dataCurrent: IUser) => {
+        () => {
           return {
             ...dataUser,
           };
