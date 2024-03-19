@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { ModalLogin } from "../organism/modal-login";
+import { ModalSignSignUp } from "../organism/modal-signSgnup";
 
 export function Navbar() {
   return (
@@ -19,12 +20,7 @@ export function Navbar() {
 
         <span className="mx-4">ou</span>
 
-        <Button
-          variant="outline"
-          className="w-25 bg-white text-black  hover:bg-white underline border-0 font-bold"
-        >
-          Cadastre-se
-        </Button>
+        <ModalSignSignUp />
       </div>
     </div>
   );
