@@ -2,21 +2,6 @@
 
 import * as React from "react";
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "@/components/ui/command";
-
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { ControllerRenderProps } from "react-hook-form";
 import {
   FormControl,
@@ -51,10 +36,7 @@ export function InputSelect({
   field,
   title,
   placeholder,
-  placeholderSearch,
-  placeholderSearchNotFound,
-  isLoading,
-  onSearch,
+
   width = "w-full",
 }: InputSelectProps) {
   return (
