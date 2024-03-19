@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Button } from "../ui/button";
+import { ModalLogin } from "../organism/modal-login";
 
 export function Navbar() {
   return (
@@ -14,12 +15,7 @@ export function Navbar() {
       </div>
 
       <div>
-        <Button
-          variant="default"
-          className="w-16 bg-primary-main text-white hover:bg-primary-main"
-        >
-          Entrar
-        </Button>
+        <ModalLogin />
 
         <span className="mx-4">ou</span>
 
