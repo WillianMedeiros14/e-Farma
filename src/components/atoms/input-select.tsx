@@ -69,7 +69,9 @@ export function InputSelect({
           </FormControl>
           <SelectContent>
             {data?.map((item) => (
-              <SelectItem value={item.name}>{item.name}</SelectItem>
+              <SelectItem key={item.id} value={item.name}>
+                {item.name}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>
