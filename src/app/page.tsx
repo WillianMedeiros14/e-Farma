@@ -11,13 +11,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Footer } from "@/components/molecules/footer";
+import { ItemRemedy } from "@/components/atoms/items/intemRemedy";
 
 export default function Home() {
   return (
-    <main className="flex flex-1 min-h-screen flex-col p-10">
+    <main className="flex max-w-screen-2xl mx-auto min-h-screen flex-col p-10">
       <Navbar />
 
-      <div className="w-8/12 self-center mb-8">
+      <div className="w-full self-center mb-8">
         <Image
           src={"/assets/bannerPromotion.svg"}
           alt={"E-Farms"}
@@ -30,7 +31,7 @@ export default function Home() {
 
       <span className="text-center text-2xl font-bold">Nossos produtos</span>
 
-      <div className="self-end mt-8">
+      <div className="mt-8 mb-8 self-end">
         <Select>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Filtros" />
@@ -50,7 +51,34 @@ export default function Home() {
         </Select>
       </div>
 
-      <div className="flex-1"></div>
+      {/* <div className="border flex flex-col justify-center"> */}
+      <div className="flex flex-wrap mx-auto gap-8 justify-center">
+        <ItemRemedy />
+
+        <ItemRemedy />
+
+        <ItemRemedy />
+
+        <ItemRemedy />
+
+        <ItemRemedy />
+
+        <ItemRemedy />
+
+        <ItemRemedy />
+
+        <ItemRemedy />
+
+        <ItemRemedy />
+
+        <ItemRemedy />
+        <ItemRemedy />
+        <ItemRemedy />
+        <ItemRemedy />
+        <ItemRemedy />
+        <ItemRemedy />
+      </div>
+      {/* </div> */}
     </main>
   );
 }
