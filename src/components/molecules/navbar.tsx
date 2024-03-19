@@ -2,12 +2,13 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { ModalLogin } from "../organism/modal-login";
 import { ModalSignSignUp } from "../organism/modal-signSgnup";
+import { ModalCar } from "../organism/modal-car";
 
-const token = "2";
+const token = "" as string;
 
 export function Navbar() {
   return (
-    <div className="mb-9 flex w-full items-center justify-between">
+    <div className="mb-9 flex w-full items-center justify-between flex-wrap gap-4">
       <div className="flex items-center gap-4">
         <Image
           src={"/assets/logoEFarmas.svg"}
@@ -17,15 +18,10 @@ export function Navbar() {
         />
       </div>
 
-      <div>
+      <div className="flex">
         {token !== "" ? (
           <div className="flex gap-3">
-            <Button
-              variant="default"
-              className="w-17 bg-primary-main text-white hover:bg-primary-main"
-            >
-              Carrinho
-            </Button>
+            <ModalCar />
             <Button
               variant={"outline"}
               disabled={false}

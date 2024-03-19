@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Footer } from "@/components/molecules/footer";
+
 import { ItemRemedy } from "@/components/atoms/intemRemedy";
 
 export default function Home() {
