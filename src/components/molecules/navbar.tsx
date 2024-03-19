@@ -25,7 +25,7 @@ export function Navbar() {
 
         <Button
           variant="outline"
-          className="w-25 bg-white text-black  hover:bg-white underline border-0 font-medium"
+          className="w-25 bg-white text-black  hover:bg-white underline border-0 font-bold"
         >
           Cadastre-se
         </Button>
