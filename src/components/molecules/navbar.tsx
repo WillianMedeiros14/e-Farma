@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 
 export function Navbar() {
   return (
-    <div className="mb-4 flex w-full items-center justify-between">
+    <div className="mb-9 flex w-full items-center justify-between">
       <div className="flex items-center gap-4">
         <Image
           src={"/assets/logoEFarmas.svg"}
