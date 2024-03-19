@@ -3,8 +3,8 @@ import { Button } from "../ui/button";
 import { ModalLogin } from "../organism/modal-login";
 import { ModalSignSignUp } from "../organism/modal-signSgnup";
 import { ModalCar } from "../organism/modal-car";
-
-const token = "" as string;
+import { isLoginSSR } from "@/functions/isLoginSSR";
+import { DialogSignOut } from "./dialogSignOut";
 
 export function Navbar() {
   return (
@@ -19,17 +19,17 @@ export function Navbar() {
       </div>
 
       <div className="flex">
-        {token !== "" ? (
+        {isLoginSSR() ? (
           <div className="flex gap-3">
             <ModalCar />
-            <Button
-              variant={"outline"}
-              disabled={false}
-              type="submit"
-              className="w-15 border border-primary-main text-primary-main"
-            >
-              Sair
-            </Button>
+
+            <DialogSignOut
+              label={"Sair"}
+              title={"Confirmar saída"}
+              description={
+                "Você está prestes a sair do sistema. Tem certeza de que deseja prosseguir? Se você sair, será desconectado da sua conta e precisará fazer login novamente para acessar o sistema."
+              }
+            />
           </div>
         ) : (
           <div className="flex gap-3 items-center">

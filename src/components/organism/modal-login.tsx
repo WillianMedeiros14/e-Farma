@@ -20,6 +20,7 @@ import { InputComponent } from "../atoms/input-comnponent";
 
 import { Form, FormField } from "../ui/form";
 import { useToast } from "../ui/use-toast";
+import { useAuth } from "@/hooks/useAuth";
 
 const formSchema = z.object({
   email: z
@@ -33,10 +34,13 @@ const formSchema = z.object({
   }),
 });
 
+export type TypeSignIn = z.infer<typeof formSchema>;
+
 export function ModalLogin() {
   const { toast } = useToast();
+  const { SignIn } = useAuth();
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<TypeSignIn>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
@@ -51,8 +55,10 @@ export function ModalLogin() {
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: async (values: z.infer<typeof formSchema>) => {
-      return null;
+    mutationFn: async (values: TypeSignIn) => {
+      return SignIn({
+        ...values,
+      });
     },
     onSuccess: () => {
       form.reset();

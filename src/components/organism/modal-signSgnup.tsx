@@ -18,6 +18,7 @@ import { InputComponent } from "../atoms/input-comnponent";
 
 import { Form, FormField } from "../ui/form";
 import { useToast } from "../ui/use-toast";
+import { signUpService } from "@/services/signUp.service";
 
 const formSchema = z
   .object({
@@ -46,10 +47,12 @@ const formSchema = z
     path: ["confirmPassword"],
   });
 
+export type TypeSignUp = z.infer<typeof formSchema>;
+
 export function ModalSignSignUp() {
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<TypeSignUp>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -68,9 +71,15 @@ export function ModalSignSignUp() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (values: z.infer<typeof formSchema>) => {
-      return null;
+      return signUpService({
+        ...values,
+      });
     },
     onSuccess: () => {
+      toast({
+        description: "Cadastro criado com sucesso.",
+        className: "bg-green-600 text-white",
+      });
       form.reset();
       handleClose();
     },

@@ -1,5 +1,12 @@
 "use client";
+import { queryClient } from "@/app/providers";
+import { TypeSignIn } from "@/components/organism/modal-login";
 import { useToast } from "@/components/ui/use-toast";
+import {
+  IUser,
+  getUserDetailsService,
+} from "@/services/getUserDetails.service";
+import { signInService } from "@/services/signIn.service";
 
 import { useRouter } from "next/navigation";
 import { destroyCookie, setCookie } from "nookies";
@@ -13,7 +20,7 @@ interface CredentialsProps {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 interface AuthContextData {
-  SignIn: (credentials: CredentialsProps) => void;
+  SignIn: (credentials: TypeSignIn) => void;
   SignOut: () => void;
 }
 
@@ -34,12 +41,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
     authChannel.onmessage = (message) => {
       switch (message.data) {
         case "signIn":
-          // replace("/admin/agents");
-          window.location.href = "/admin";
+          window.location.href = "/";
+
           break;
         case "signOut":
-          destroyCookie(undefined, "auth.token", { path: "/" });
-          destroyCookie(undefined, "user", { path: "/" });
+          destroyCookie(undefined, "userId", { path: "/" });
+          window.location.href = "/";
           replace("/");
           break;
         default:
@@ -48,61 +55,55 @@ export function AuthProvider({ children }: AuthProviderProps) {
     };
   }, [replace]);
 
-  async function SignIn({
-    cpf,
-    password,
-    isAdmin,
-    setLoading,
-  }: CredentialsProps) {
+  async function SignIn({ email, password }: TypeSignIn) {
     try {
-      setLoading(true);
-      // const { data } = await api.post("/auth/signin", {
-      //   cpf,
-      //   password,
-      //   isAdmin,
-      // });
+      const result = await signInService({
+        email,
+        password,
+      });
 
-      // api.defaults.headers.common["Authorization"] =
-      //   `Bearer ${data.accessToken}`;
+      const userId = result.user.uid;
 
-      // setCookie(undefined, "user", String(isAdmin), {
-      //   maxAge: 60 * 60 * 24 * 30, // 30 days
-      //   path: "/",
-      // });
+      const dataUser = await getUserDetailsService({
+        userId: userId,
+      });
 
-      // setCookie(undefined, "userId", data.userId, {
-      //   maxAge: 60 * 60 * 24 * 30, // 30 days
-      //   path: "/",
-      // });
+      queryClient.setQueriesData(
+        { queryKey: ["keyUserDetails", userId] },
+        (dataCurrent: IUser) => {
+          return {
+            ...dataUser,
+          };
+        }
+      );
 
-      // setCookie(undefined, "auth.token", data.accessToken, {
-      //   maxAge: 60 * 60 * 24 * 30, // 30 days
-      //   path: "/",
-      // });
+      setCookie(undefined, "userId", userId, {
+        maxAge: 60 * 60 * 24 * 30, // 30 days
+        path: "/",
+      });
 
-      // authChannel.postMessage("signIn");
+      authChannel.postMessage("signIn");
 
-      // window.location.href = "/admin/agents";
+      window.location.href = "/";
 
-      // toast({
-      //   description: "Sign-in realizado com sucesso.",
-      // });
+      toast({
+        description: "Sign-in realizado com sucesso.",
+      });
     } catch (error) {
       toast({
         description: "Credenciais inválidas!",
         variant: "destructive",
       });
-    } finally {
-      setLoading(false);
     }
   }
 
   async function SignOut() {
+    queryClient.clear();
     toast({
       description: "Sign-out realizado",
     });
-    destroyCookie(undefined, "auth.token", { path: "/" });
-    destroyCookie(undefined, "user", { path: "/" });
+
+    destroyCookie(undefined, "userId", { path: "/" });
 
     replace("/");
     authChannel.postMessage("signOut");
