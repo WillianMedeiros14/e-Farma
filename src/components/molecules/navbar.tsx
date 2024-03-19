@@ -26,7 +26,6 @@ export function Navbar() {
             >
               Carrinho
             </Button>
-
             <Button
               variant={"outline"}
               disabled={false}
@@ -39,9 +38,7 @@ export function Navbar() {
         ) : (
           <div className="flex gap-3 items-center">
             <ModalLogin />
-
             <span className="mx-4">ou</span>
-
             <ModalSignSignUp />
           </div>
         )}
