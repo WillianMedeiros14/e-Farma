@@ -3,6 +3,8 @@ import { Button } from "../ui/button";
 import { ModalLogin } from "../organism/modal-login";
 import { ModalSignSignUp } from "../organism/modal-signSgnup";
 
+const token = "2";
+
 export function Navbar() {
   return (
     <div className="mb-9 flex w-full items-center justify-between">
@@ -16,11 +18,33 @@ export function Navbar() {
       </div>
 
       <div>
-        <ModalLogin />
+        {token !== "" ? (
+          <div className="flex gap-3">
+            <Button
+              variant="default"
+              className="w-17 bg-primary-main text-white hover:bg-primary-main"
+            >
+              Carrinho
+            </Button>
 
-        <span className="mx-4">ou</span>
+            <Button
+              variant={"outline"}
+              disabled={false}
+              type="submit"
+              className="w-15 border border-primary-main text-primary-main"
+            >
+              Sair
+            </Button>
+          </div>
+        ) : (
+          <div className="flex gap-3 items-center">
+            <ModalLogin />
 
-        <ModalSignSignUp />
+            <span className="mx-4">ou</span>
+
+            <ModalSignSignUp />
+          </div>
+        )}
       </div>
     </div>
   );
