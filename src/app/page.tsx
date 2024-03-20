@@ -54,7 +54,7 @@ export default function Home() {
       {/* <div className="border flex flex-col justify-center"> */}
       <div className="flex flex-wrap mx-auto gap-8 justify-center">
         <ItemRemedy />
-
+        {/* 
         <ItemRemedy />
 
         <ItemRemedy />
@@ -76,7 +76,7 @@ export default function Home() {
         <ItemRemedy />
         <ItemRemedy />
         <ItemRemedy />
-        <ItemRemedy />
+        <ItemRemedy /> */}
       </div>
       {/* </div> */}
     </main>
