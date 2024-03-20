@@ -13,8 +13,10 @@ import { useState } from "react";
 import { useGetProductsHome } from "@/hooks/useGetProductsHome";
 
 import { Loader2 } from "lucide-react";
+import { useCar } from "@/hooks/useCar";
 
 export function ProductsHome() {
+  const { addItemCar } = useCar();
   const [filter, setFilter] = useState("Todas");
 
   const { data, isLoading } = useGetProductsHome({
@@ -53,7 +55,11 @@ export function ProductsHome() {
             {data && data?.length > 0 ? (
               <>
                 {data?.map((item) => (
-                  <ItemRemedy data={item} />
+                  <ItemRemedy
+                    key={item.id}
+                    data={item}
+                    onSelect={() => addItemCar(item)}
+                  />
                 ))}
               </>
             ) : (

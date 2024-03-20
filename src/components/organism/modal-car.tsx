@@ -22,6 +22,8 @@ import { Form, FormField } from "../ui/form";
 import { useToast } from "../ui/use-toast";
 import { ItemCar } from "../atoms/itemCar";
 import { InputSelect } from "../atoms/input-select";
+import Image from "next/image";
+import { useCar } from "@/hooks/useCar";
 
 const formSchema = z.object({
   paymentMethod: z.string().min(1, {
@@ -42,6 +44,13 @@ const formSchema = z.object({
 });
 export function ModalCar() {
   const { toast } = useToast();
+  const {
+    itemsCar,
+    removeItemCar,
+
+    handleIncreaseItemQuantity,
+    handleDecreaseItemQuantity,
+  } = useCar();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -88,15 +97,24 @@ export function ModalCar() {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button
-          variant="default"
-          className="w-17 bg-primary-main text-white hover:bg-primary-main"
-          onClick={() => {
-            form.reset();
-          }}
-        >
-          Carrinho
-        </Button>
+        {itemsCar.length > 0 && (
+          <Button
+            variant="default"
+            className="w-17 bg-primary-main text-white hover:bg-primary-main"
+            onClick={() => {
+              form.reset();
+            }}
+          >
+            <Image
+              src={"/assets/shopping.svg"}
+              alt={"shopping"}
+              width={24}
+              height={24}
+            />
+
+            <span className="ml-2">{itemsCar.length} itens</span>
+          </Button>
+        )}
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -117,7 +135,19 @@ export function ModalCar() {
         </AlertDialogHeader>
 
         <div className="w-full">
-          <ItemCar />
+          {itemsCar.map((item) => (
+            <ItemCar
+              key={item.id}
+              data={item}
+              onRemove={() => removeItemCar(item.id)}
+              handleDecreaseItemQuantity={() =>
+                handleDecreaseItemQuantity(item.id)
+              }
+              handleIncreaseItemQuantity={() =>
+                handleIncreaseItemQuantity(item.id)
+              }
+            />
+          ))}
 
           <Form {...form}>
             <form
