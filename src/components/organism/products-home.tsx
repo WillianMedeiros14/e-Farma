@@ -59,7 +59,7 @@ export function ProductsHome() {
             ) : (
               <>
                 <span className="text-center text-1xl font-bold">
-                  Não há produtos nessa categoria
+                  Não há produtos nesta categoria
                 </span>
               </>
             )}
