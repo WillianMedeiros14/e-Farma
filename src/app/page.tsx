@@ -1,17 +1,8 @@
 import { Navbar } from "@/components/molecules/navbar";
 import Image from "next/image";
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
 import { ItemRemedy } from "@/components/atoms/intemRemedy";
+import { ProductsHome } from "@/components/organism/products-home";
 
 export default function Home() {
   return (
@@ -29,56 +20,7 @@ export default function Home() {
         />
       </div>
 
-      <span className="text-center text-2xl font-bold">Nossos produtos</span>
-
-      <div className="mt-8 mb-8 self-end">
-        <Select>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Filtros" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Categoria</SelectLabel>
-              <SelectItem value="Todas">Todas</SelectItem>
-              <SelectItem value="Anti-inflamatório">
-                Anti-inflamatório
-              </SelectItem>
-              <SelectItem value="Alergias">Alergias</SelectItem>
-              <SelectItem value="Dores">Dores</SelectItem>
-              <SelectItem value="Gripe">Gripe</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
-
-      {/* <div className="border flex flex-col justify-center"> */}
-      <div className="flex flex-wrap mx-auto gap-8 justify-center">
-        <ItemRemedy />
-        {/* 
-        <ItemRemedy />
-
-        <ItemRemedy />
-
-        <ItemRemedy />
-
-        <ItemRemedy />
-
-        <ItemRemedy />
-
-        <ItemRemedy />
-
-        <ItemRemedy />
-
-        <ItemRemedy />
-
-        <ItemRemedy />
-        <ItemRemedy />
-        <ItemRemedy />
-        <ItemRemedy />
-        <ItemRemedy />
-        <ItemRemedy /> */}
-      </div>
-      {/* </div> */}
+      <ProductsHome />
     </main>
   );
 }

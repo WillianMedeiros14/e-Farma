@@ -2,8 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { IProducts } from "@/services/getProductsHome.service";
 
-export function ItemRemedy() {
+interface IItemRemedy {
+  data: IProducts;
+}
+
+export function ItemRemedy({ data }: IItemRemedy) {
   const [hover, setHover] = useState(false);
 
   return (
@@ -12,18 +17,11 @@ export function ItemRemedy() {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <Image
-        src="https://d3ddx6b2p2pevg.cloudfront.net/Custom/Content/Products/10/88/1088563_daaz-vitamina-c-tripla-acao-30-comprimidos-efervescentes_z1_637631663157731430.jpg"
-        alt={"Vitamina C"}
-        width={160}
-        height={160}
-      />
+      <Image src={data.image} alt={data.name} width={160} height={160} />
 
-      <p className="text-[14px] mt-6">
-        Vitamina C + Zinco Daaz com 30 comprimidos efervescente
-      </p>
+      <p className="text-[14px] mt-6">{data.name}</p>
 
-      <p className="text-3xl font-bold mt-4">R$ 36,90</p>
+      <p className="text-3xl font-bold mt-4">R$ {data.price}</p>
 
       <div
         className={`absolute inset-0 flex flex-col items-center justify-center rounded-[16px] border border-[#191919] transition-all duration-300 ${

@@ -7,7 +7,15 @@ import {
   signOut,
 } from "firebase/auth";
 
-import { getFirestore, getDoc, doc } from "firebase/firestore";
+import {
+  getFirestore,
+  getDoc,
+  doc,
+  query,
+  collection,
+  where,
+  getDocs,
+} from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -48,4 +56,8 @@ export {
   getDoc,
   doc,
   signOut,
+  query,
+  collection,
+  where,
+  getDocs,
 };
