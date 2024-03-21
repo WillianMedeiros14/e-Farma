@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { IProducts } from "@/services/getProductsHome.service";
+import { parseCookies } from "nookies";
 
 interface IItemRemedy {
   data: IProducts;
@@ -11,12 +12,14 @@ interface IItemRemedy {
 
 export function ItemRemedy({ data, onSelect }: IItemRemedy) {
   const [hover, setHover] = useState(false);
+  const { userId } = parseCookies();
 
   return (
     <button
       className="p-8 max-w-[340px] flex flex-col items-center rounded-sm relative"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      disabled={userId === undefined}
       onClick={onSelect}
     >
       <Image src={data.image} alt={data.name} width={160} height={160} />
