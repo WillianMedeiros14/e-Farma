@@ -3,7 +3,13 @@
 import { useToast } from "@/components/ui/use-toast";
 import { IProducts } from "@/services/getProductsHome.service";
 
-import { ReactNode, createContext, useState } from "react";
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useState,
+} from "react";
 
 export interface IItemsCar extends IProducts {
   quantityInCart: number;
@@ -15,6 +21,9 @@ interface CarContextData {
   removeItemCar: (id: string) => void;
   handleIncreaseItemQuantity: (id: string) => void;
   handleDecreaseItemQuantity: (id: string) => void;
+  handleClean: () => void;
+  filter: string;
+  setFilter: Dispatch<SetStateAction<string>>;
 }
 
 interface CarProviderProps {
@@ -27,6 +36,8 @@ export function CarProvider({ children }: CarProviderProps) {
   const { toast } = useToast();
 
   const [itemsCar, setItemsCar] = useState<IItemsCar[]>([]);
+
+  const [filter, setFilter] = useState("Todas");
 
   function addItemCar(item: IProducts) {
     const existingItem = itemsCar.find((existing) => existing.id === item.id);
@@ -73,6 +84,10 @@ export function CarProvider({ children }: CarProviderProps) {
     setItemsCar(updatedItemsCar);
   }
 
+  function handleClean() {
+    setItemsCar([]);
+  }
+
   return (
     <CarContext.Provider
       value={{
@@ -81,6 +96,9 @@ export function CarProvider({ children }: CarProviderProps) {
         removeItemCar,
         handleIncreaseItemQuantity,
         handleDecreaseItemQuantity,
+        handleClean,
+        filter,
+        setFilter,
       }}
     >
       {children}

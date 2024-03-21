@@ -15,6 +15,10 @@ import {
   collection,
   where,
   getDocs,
+  runTransaction,
+  setDoc,
+  addDoc,
+  updateDoc,
 } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -60,4 +64,8 @@ export {
   collection,
   where,
   getDocs,
+  runTransaction,
+  setDoc,
+  addDoc,
+  updateDoc,
 };

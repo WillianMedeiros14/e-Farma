@@ -24,6 +24,12 @@ import { ItemCar } from "../atoms/itemCar";
 import { InputSelect } from "../atoms/input-select";
 import Image from "next/image";
 import { useCar } from "@/hooks/useCar";
+import {
+  IFinalizePurchaseServiceProps,
+  finalizePurchaseService,
+} from "@/services/finalizePurchase.service";
+import { parseCookies } from "nookies";
+import { queryClient } from "@/app/providers";
 
 const formSchema = z.object({
   paymentMethod: z.string().min(1, {
@@ -42,17 +48,23 @@ const formSchema = z.object({
     message: "Digite um ponto de referência",
   }),
 });
+
+export type TypeFormCar = z.infer<typeof formSchema>;
+
 export function ModalCar() {
   const { toast } = useToast();
+  const { userId } = parseCookies();
+
   const {
     itemsCar,
     removeItemCar,
-
     handleIncreaseItemQuantity,
     handleDecreaseItemQuantity,
+    handleClean,
+    filter,
   } = useCar();
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<TypeFormCar>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       paymentMethod: "",
@@ -69,12 +81,19 @@ export function ModalCar() {
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: async (values: z.infer<typeof formSchema>) => {
-      return null;
+    mutationFn: async (values: IFinalizePurchaseServiceProps) => {
+      return finalizePurchaseService(values);
     },
     onSuccess: () => {
       form.reset();
       handleClose();
+      handleClean();
+
+      queryClient.cancelQueries({ queryKey: ["keyProductsHome", filter] });
+
+      toast({
+        description: "Compra finalizada com sucesso!",
+      });
     },
 
     onError(error: any) {
@@ -91,7 +110,45 @@ export function ModalCar() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log({ values });
-    mutate(values);
+    let priceTotal = 0;
+
+    itemsCar.forEach((item) => {
+      const value = item.price * item.quantityInCart;
+      priceTotal = priceTotal + value;
+    });
+
+    const products = itemsCar.map((item) => {
+      return {
+        category: item.category,
+        description: item.description,
+        expirationDate: item.expirationDate,
+        id: item.id,
+        image: item.image,
+        manufacturer: item.manufacturer,
+        name: item.name,
+        pharmaceuticalForm: item.pharmaceuticalForm,
+        presentation: item.presentation,
+        price: item.price,
+        totalItems: item.quantityInCart,
+      };
+    });
+
+    const valuesSend: IFinalizePurchaseServiceProps = {
+      data: {
+        priceTotal,
+        userId,
+        purchaseDate: new Date(),
+        products,
+        complement: values.complement,
+        neighborhood: values.neighborhood,
+        number: values.number,
+        street: values.street,
+        paymentMethod: values.paymentMethod,
+      },
+    };
+
+    // console.log({ valuesSend });
+    mutate(valuesSend);
   }
 
   return (

@@ -12,13 +12,6 @@ import { useRouter } from "next/navigation";
 import { destroyCookie, setCookie } from "nookies";
 import { ReactNode, createContext, useEffect } from "react";
 
-interface CredentialsProps {
-  cpf: string;
-  password: string;
-  isAdmin?: boolean;
-
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-}
 interface AuthContextData {
   SignIn: (credentials: TypeSignIn) => void;
   SignOut: () => void;

@@ -16,8 +16,7 @@ import { Loader2 } from "lucide-react";
 import { useCar } from "@/hooks/useCar";
 
 export function ProductsHome() {
-  const { addItemCar } = useCar();
-  const [filter, setFilter] = useState("Todas");
+  const { addItemCar, filter, setFilter } = useCar();
 
   const { data, isLoading } = useGetProductsHome({
     category: filter,
