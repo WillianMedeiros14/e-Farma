@@ -81,6 +81,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       toast({
         description: "Sign-in realizado com sucesso.",
+        className: "bg-green-600 text-white",
       });
     } catch (error) {
       toast({
@@ -93,7 +94,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   async function SignOut() {
     queryClient.clear();
     toast({
-      description: "Sign-out realizado",
+      description: "Vicê foi deslogado",
+      className: "bg-green-600 text-white",
     });
 
     destroyCookie(undefined, "userId", { path: "/" });

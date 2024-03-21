@@ -93,6 +93,7 @@ export function ModalCar() {
 
       toast({
         description: "Compra finalizada com sucesso!",
+        className: "bg-green-600 text-white",
       });
     },
 

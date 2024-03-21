@@ -47,6 +47,10 @@ export function CarProvider({ children }: CarProviderProps) {
         ...prevItems,
         { ...item, quantityInCart: 1 },
       ]);
+      toast({
+        description: "Item adicionado em seu carrinho!",
+        className: "bg-green-600 text-white",
+      });
     } else {
       toast({
         description: "Este produto já está em seu carrinho",
