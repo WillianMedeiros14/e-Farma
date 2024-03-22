@@ -63,7 +63,7 @@ export function ItemCar({
 
       <div className="flex items-center gap-2 w-[104px] justify-center">
         <p className="font-semibold text-2xl text-center">
-          R$ {data.price * data.quantityInCart}
+          R$ {(data.price * data.quantityInCart).toFixed(2)}
         </p>
       </div>
 

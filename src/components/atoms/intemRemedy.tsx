@@ -26,7 +26,7 @@ export function ItemRemedy({ data, onSelect }: IItemRemedy) {
 
       <p className="text-[14px] mt-6">{data.name}</p>
 
-      <p className="text-3xl font-bold mt-4">R$ {data.price}</p>
+      <p className="text-3xl font-bold mt-4">R$ {data.price.toFixed(2)}</p>
 
       <div
         className={`absolute inset-0 flex flex-col items-center justify-center rounded-[16px] border border-[#191919] transition-all duration-300 ${
