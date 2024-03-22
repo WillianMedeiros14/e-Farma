@@ -75,7 +75,7 @@ export function ModalSignSignUp() {
         ...values,
       });
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast({
         description: "Cadastro criado com sucesso.",
         className: "bg-green-600 text-white",
@@ -85,14 +85,17 @@ export function ModalSignSignUp() {
     },
 
     onError(error: any) {
-      const { data } = error?.response;
-
-      console.log({ data });
-
-      toast({
-        description: "Erro ao criar cadastro",
-        variant: "destructive",
-      });
+      if (error?.code === "auth/email-already-in-use") {
+        toast({
+          description: "Esse email já está em uso",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          description: "Erro ao criar cadastro",
+          variant: "destructive",
+        });
+      }
     },
   });
 
