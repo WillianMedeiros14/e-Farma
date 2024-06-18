@@ -5,7 +5,7 @@
 ## 💻 Projeto
 
 Está aplicação foi criada para um trabalho da faculdade.<br>
-Este projeto serve apenas para demostrar um exemplo de um sistema de cadastro de medicamentos.
+Este projeto serve apenas para demostrar um exemplo de um sistema de compras de medicamentos.
 <br><br>
 
 ## ⓘ Informações
